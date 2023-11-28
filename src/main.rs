@@ -67,12 +67,70 @@ struct User {
     sign_in_count: u64,
 }
 
+#[derive(Debug)]
+struct Rectangle{
+    width: u32,
+    height: u32
+}
+
+impl Rectangle{
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+    fn can_hold(&self, rect: &Rectangle) -> bool {
+        if self.area() > rect.area(){
+            return true
+        }
+        false
+    }
+    fn square(size:u32) -> Self {
+        Self {
+            width: size,
+            height: size
+        }
+    }
+}
+
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+#[derive(Debug)] // so we can inspect the state in a minute
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        }
+    }
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
 fn main() {
-    let s = "hello";
-    let user1 = User {
-        active: true,
-        username: s.parse().unwrap(),
-        email: String::from("someone@example.com"),
-        sign_in_count: 1,
-    };
+
 }
